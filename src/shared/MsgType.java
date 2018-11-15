@@ -6,5 +6,7 @@ package shared;
 public enum MsgType {
     STARTGAME,
     GAMEENTRY,
-    DISCONNECT
+    DISCONNECT,
+    GAMESTATE,
+    TEXT
 }

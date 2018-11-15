@@ -1,7 +1,7 @@
 package server.net;
 
-import server.controller.Controller;
-import server.model.Message;
+import server.controller.GameController;
+import shared.Message;
 import shared.MessageException;
 
 import java.io.*;
@@ -17,7 +17,7 @@ public class ClientHandler implements Runnable {
     private BufferedReader fromClient;
     private PrintWriter toClient;
     private boolean connected;
-    private Controller ctrl;
+    private GameController ctrl;
 
     public ClientHandler(HangmanServer server, Socket clientSocket) {
         this.server = server;
@@ -35,13 +35,13 @@ public class ClientHandler implements Runnable {
             throw new UncheckedIOException(ioe);
         }
 
-        ctrl = new Controller();
+        ctrl = new GameController();
         while (connected) {
             try {
-                String commandString = fromClient.readLine();
+                String msgString = fromClient.readLine();
 
-                if (commandString != null) {
-                    HandleCommand(commandString);
+                if (msgString != null) {
+                    HandleMessage(msgString);
                 } else {
                     disconnectClient();
                 }
@@ -53,8 +53,8 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    private void HandleCommand(String commandString) {
-        Message msg = new Message(commandString);
+    private void HandleMessage(String msgString) {
+        Message msg = new Message(msgString);
         String answer;
         switch (msg.getMsgType()) {
             case STARTGAME:
@@ -78,10 +78,6 @@ public class ClientHandler implements Runnable {
                 throw new MessageException("Received corrupt message: " +
                         msg.getReceivedString());
         }
-    }
-
-    public void showView(){
-
     }
 
     private void disconnectClient() {

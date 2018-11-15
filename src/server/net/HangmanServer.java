@@ -1,7 +1,6 @@
 package server.net;
 
-import server.controller.Controller;
-import server.model.Message;
+import server.controller.GameController;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -18,7 +17,7 @@ public class HangmanServer {
     private static final int TIMEOUT_HALF_HOUR = 1800000;
     private final List<ClientHandler> clients = new ArrayList<>();
     private int portNo = 1989;
-    private final Controller ctrl = new Controller();
+    private final GameController ctrl = new GameController();
 
     public static void main(String[] args){
         HangmanServer server = new HangmanServer();

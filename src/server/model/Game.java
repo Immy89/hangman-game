@@ -8,7 +8,7 @@ import server.helpers.Wordlist;
  * Created by Kim Säther on 09-Nov-18.
  */
 public class Game {
-    private Wordlist wordlist;
+    private final Wordlist wordlist;
     private String word = "";
     private String guessedLetters = "";
     private int remainingFailedGuesses;
@@ -109,10 +109,18 @@ public class Game {
         for (int i = 0; i < word.length(); i++) {
             String c = Character.toString(word.charAt(i));
             if (guessedLetters.contains(c)) {
-                sb.append(c);
+                if (i < word.length() - 1) {
+                    sb.append(c + " ");
+                } else if (i == word.length() - 1) {
+                    sb.append(c);
+                }
             }
             else {
-                sb.append("_");
+                if (i < word.length() - 1) {
+                    sb.append("_ ");
+                } else if (i == word.length() - 1) {
+                    sb.append("_");
+                }
             }
         }
 
