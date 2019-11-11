@@ -16,7 +16,7 @@ public class CommandInterpreter {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\\n");
+        scanner.useDelimiter("\\r\\n");
         for (;;) {
             String input = scanner.next();
             String[] commandParts = input.split(" ");
